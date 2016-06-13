@@ -1,0 +1,69 @@
+---
+title: "DescriptiveStatistics"
+author: "Rudrani"
+date: "June 7, 2016"
+output: html_document
+---
+Examples and borrowed from 
+Data Mining Algorithms in R by Pawel Cichosz
+```{r setup, include=FALSE}
+source("WeatherData.R")
+```
+
+Calculation of mean
+
+```{r}
+bs.mean <- function(v) { sum(v)/length(v) }
+bs.mean(weatherc$temperature)
+mean(weatherc$temperature)
+```
+
+Calculation of weighted mean
+
+```{r}
+bs.weighted.mean <- function(v, w=rep(1, length(v))) { sum(w*v)/sum(w) }
+bs.weighted.mean(weatherc$temperature, ifelse(weatherc$play=="yes", 5, 1))
+weighted.mean(weatherc$temperature, ifelse(weatherc$play=="yes", 5, 1))
+```
+
+
+Calculation of median
+```{r}
+bs.median <- function(v)
+{
+  k1 <- (m <- length(v))%/%2+1
+  k2 <- (m+1)%/%2
+  ((v <- sort(v))[k1]+v[k2])/2
+}
+bs.median(weatherc$temperature)
+bs.median(weatherc$temperature[weatherc$play=="yes"])
+median(weatherc$temperature)
+median(weatherc$temperature[weatherc$play=="yes"])
+```
+
+Calculation of variance
+
+```{r}
+bs.var <- function(v) { sum((v-mean(v))^2)/(length(v)-1) }
+bs.var(weatherr$playability)
+var(weatherr$playability)
+
+```
+
+Calculation of mode
+
+
+```{r}
+weighted.modal <- function(v, w=rep(1, length(v)))
+{
+  m <- which.max(table(v, w=w))
+  if (is.factor(v))
+    factor(levels(v)[m], levels=levels(v))
+  else
+    sort(unique(v))[m]
+}
+weighted.modal(weather$outlook)
+weighted.modal(weather$outlook, w=ifelse(weather$play=="yes", 2, 1))
+
+```
+
