@@ -1,4 +1,4 @@
-/* Some code pieces have been borrowed from existing Git code  chen (Author)
+// Some code pieces have been borrowed from existing Git code  chen (Author)
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
